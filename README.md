@@ -2,9 +2,9 @@
 
 Run these commands
 
-`git clone ...`
+`git clone git@github.com:A-Perrier/florajet-aggregator.git`
 
-`cd florajet-test-technique`
+`cd florajet-aggregator`
 
 `composer install`
 
