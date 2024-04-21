@@ -1,0 +1,55 @@
+aggregators:
+  le_monde:
+    config:
+      type: xml
+      url: https://www.lemonde.fr/rss/une.xml
+    properties:
+#      sourceId:
+      title: title
+      publishedAt: pubDate
+      description: description
+      source: link
+      # author:
+      image: image
+
+  news_api:
+    config:
+      type: json
+      # Of course, the apiKey is declared here because it's just a test, not for production. :)
+      url: 'https://newsapi.org/v2/top-headlines?country=fr&apiKey=9a0068e4b27c4b678d771340432a7360'
+      data_root: 'articles'
+    properties:
+      # sourceId:
+      title: title
+      publishedAt: publishedAt
+      description: description
+      source: url
+      author: author
+      image: urlToImage
+
+  saurav:
+    config:
+      type: json
+      url: https://saurav.tech/NewsAPI/top-headlines/category/health/fr.json
+      data_root: 'articles'
+    properties:
+      # sourceId:
+      title: title
+      publishedAt: publishedAt
+      description: description
+      source: url
+      author: author
+      image: urlToImage
+
+  space_flight_news_api:
+    config:
+      type: json
+      url: https://api.spaceflightnewsapi.net/v3/articles
+    properties:
+      sourceId: id
+      title: title
+      publishedAt: publishedAt
+      description: summary
+      source: url
+      author: newsSite
+      image: imageUrl

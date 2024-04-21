@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <h1 class="mt-5 mb-3">Tous les articles</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <button id="aggregator-button" class="my-3 btn btn-primary">
+            Aggréger les articles
+        </button>
+    {% endif %}
+    <div class="articles-container">
+        <div class="row d-flex justify-content-between cards-container">
+            {% include '_parts/articles.html.twig' with {'articles': articles} %}
+        </div>
+    </div>
+{% endblock %}

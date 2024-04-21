@@ -1,0 +1,26 @@
+{% for article in articles %}
+    <div class="card my-2 aggregated-article" style="width: 18rem;">
+        {% if article.image is not null %}
+        <img src="{{ article.image }}" class="card-img-top" alt="...">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text">{{ article.description }}</p>
+            <a href="{{ article.source }}" target="_blank" class="btn btn-primary">En lire plus</a>
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ path('edit_article_page', {'article': article.id}) }}">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-danger delete-article" data-id="{{ article.id }}">Supprimer</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endfor %}
