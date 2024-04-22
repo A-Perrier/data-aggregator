@@ -80,10 +80,10 @@ class AggregatorService
 
     private function parseXmlWithImages(string $content): array
     {
+        // With LIBXML_NOCDATA flag, we ensure to ignore CDATA from XML to get its content rather than an empty array
         $xmlSource = simplexml_load_string($content, null, LIBXML_NOCDATA);
         $xmlMedia = $xmlSource->xpath('//media:content');
         $articles = json_decode(json_encode($xmlSource->channel), true)['item'];
-//        dd('ici', json_encode($xmlSource->channel));
         foreach ($articles as $key => &$article) {
             // array_values is to prevent [0] to crash the app if values are not indexed from 0.
             $article['image'] = array_values((array) $xmlMedia[$key]->attributes()['url'])[0];
@@ -92,6 +92,10 @@ class AggregatorService
         return $articles;
     }
 
+    /**
+     * Based on the data retrieved from the API, mapping the entity with the array to hydrate Article properly
+     * and preparing it to be inserted into the database
+     */
     private function convert(array $rawData, array $aggregatorProperties): array
     {
         $articles = [];
@@ -111,6 +115,9 @@ class AggregatorService
         return $articles;
     }
 
+    /**
+     * This method ensures to hydrate the Article, while converting mapped DateTimeImmutable fields.
+     */
     private function hydrateProperty(Article &$article, string $method, array $rawArticle, string $aggregatedProperty)
     {
         if ($method === 'setPublishedAt') {

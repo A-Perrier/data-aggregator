@@ -57,7 +57,8 @@ class ArticleController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function editArticle(Article $article): JsonResponse
     {
-        // TODO
+        // In the case of this test, this method is not revelant.
+        return new JsonResponse(null, Response::HTTP_OK);
     }
 
     #[Route('/api/articles/{article}', name: 'delete_article', methods: ['DELETE'])]
@@ -67,6 +68,7 @@ class ArticleController extends AbstractController
         try {
             $this->em->remove($article);
             $this->em->flush();
+            // We empty cache to force reloading of the articles based on the database at the next fetching.
             $this->cache->deleteItem('articles');
             return new JsonResponse(['success' => true]);
         } catch (\Exception $exception) {
@@ -82,6 +84,9 @@ class ArticleController extends AbstractController
         $result = $this->aggregatorService->aggregate();
 
         if (!is_null($result['data'])) {
+            // As it's better for UX, we send back an HTML string of all the articles to insert it into the DOM.
+            // Since the current test doesn't provide a support for duplicate entries, I've chosen to erase the cache and
+            // fetching again the articles to ensure there's no duplicates into the view.
             $htmlResponse = $this->renderView('_parts/articles.html.twig', ['articles' => $this->aggregatorService->findAll(true)]);
             $result['data'] = $htmlResponse;
         }

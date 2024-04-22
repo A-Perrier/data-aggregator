@@ -4,7 +4,7 @@ aggregators:
       type: xml
       url: https://www.lemonde.fr/rss/une.xml
     properties:
-#      sourceId:
+      # sourceId:
       title: title
       publishedAt: pubDate
       description: description
