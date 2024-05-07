@@ -4,7 +4,7 @@ Run these commands
 
 `git clone git@github.com:A-Perrier/florajet-aggregator.git`
 
-`cd florajet-aggregator`
+`cd data-aggregator`
 
 `composer install`
 
