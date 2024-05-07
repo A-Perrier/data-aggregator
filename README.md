@@ -2,7 +2,7 @@
 
 Run these commands
 
-`git clone git@github.com:A-Perrier/florajet-aggregator.git`
+`git clone git@github.com:A-Perrier/data-aggregator.git`
 
 `cd data-aggregator`
 
